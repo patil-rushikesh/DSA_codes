@@ -1,18 +1,16 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
             "type": "shell",
             "label": "buildAndRun",
-            "command": "C:\\MinGW\\bin\\g++.exe",
+            "command": "C:/Program Files/Git/bin/bash.exe",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "-c",
+                "\"c:/MinGW/bin/g++.exe -fdiagnostics-color=always -g '${file}' -o '${fileDirname}//${fileBasenameNoExtension}.exe'\""
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -30,7 +28,5 @@
                 "clear": true
             }
         }
-      
-    ],
-    "version": "2.0.0"
+    ]
 }

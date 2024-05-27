@@ -1,17 +1,14 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
             "name": "C++ Launch (GDB)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${fileDirname}//${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
@@ -23,7 +20,8 @@
                 }
             ],
             "preLaunchTask": "buildAndRun",
-            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe"
+            "miDebuggerPath": "c:/MinGW/bin/gdb.exe", // Adjust path if necessary
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }
