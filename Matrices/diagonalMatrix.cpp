@@ -65,7 +65,7 @@ int main()
     m.set(2, 2, 8);
     m.set(3, 3, 9);
     m.set(4, 4, 12);
-    cout<<m.get(2, 2)<<endl;
+    cout << m.get(2, 2) << endl;
     m.display();
     return 0;
 }
