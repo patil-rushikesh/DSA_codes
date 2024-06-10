@@ -176,7 +176,7 @@ int main() {
     ll.displaySearchResult(p);
 
     // Perform search and transposition operation
-    p = ll.search_transposition(x);
+    node *p = ll.search_transposition(x);
     ll.display(); // Display the linked list after transposition operation
     ll.displaySearchResult(p);
 
