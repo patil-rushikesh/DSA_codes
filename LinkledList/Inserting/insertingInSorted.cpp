@@ -48,23 +48,35 @@ bool LinkedList::isSorted()
 // Function to insert a node in a sorted linked list
 void LinkedList::insertinSorted(int x)
 {
-    node *t = new node;
-    t->data = x;
-    t->next = NULL;
-    node *p = first;
-    node *q = NULL;
-    if(first == NULL){
+    node *t = new node; // Create a new node
+    t->data = x;        // Set the data of the new node
+    t->next = NULL;     // Set the next of the new node to NULL
+    node *p = first;    // Pointer to traverse the list
+    node *q = NULL;     // Pointer to keep track of the previous node
+
+    // If the list is empty, insert the new node as the first node
+    if (first == NULL)
+    {
         first = t;
-    }else{
-        while(p && p -> data < x){
+    }
+    else
+    {
+        // Traverse the list to find the correct position to insert the new node
+        while (p && p->data < x)
+        {
             q = p;
-            p = p -> next;
+            p = p->next;
         }
-        if(p == first){
+        // If inserting at the beginning of the list
+        if (p == first)
+        {
             t->next = first;
-            first  = t;
-        }else{
-            t->next = q -> next;
+            first = t;
+        }
+        else
+        {
+            // Insert the new node in its correct position
+            t->next = q->next;
             q->next = t;
         }
     }
@@ -135,6 +147,6 @@ int main()
     }
     else
     {
-        cout<<"Not sorted"<<endl;
+        cout << "Not sorted" << endl;
     }
 }
