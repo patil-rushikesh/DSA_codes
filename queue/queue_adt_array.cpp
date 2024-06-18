@@ -15,7 +15,6 @@ public:
     queue(int x);
     void enqueue(int x);
     int dequeue();
-    int peek();
     void display();
     int queueFront();
     int queueRear();
