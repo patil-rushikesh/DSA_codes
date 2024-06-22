@@ -165,8 +165,8 @@ int binaryTree::sum(treeNode *p)
     int x=0, y=0;
     if (p != NULL)
     {  
-        x = count(p->leftChild);
-        y = count(p->rightChild);
+        x = sum(p->leftChild);
+        y = sum(p->rightChild);
         return x + y + p->data;
     }
     return 0;
