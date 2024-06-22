@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 
 class treeNode {
@@ -14,11 +15,12 @@ private:
     treeNode *root;
 
     void destroy(treeNode *p);
-    treeNode *createFromPreorder(int *preorder, int size);
     treeNode *searchRecursive(treeNode *p, int key);
     treeNode *insertRecursive(treeNode *p, int key);
     treeNode *deleteNode(treeNode *p, int key);
     treeNode *inorderSuccessor(treeNode *p);
+    treeNode *inorderPredecessor(treeNode *p);
+    int height(treeNode *p);
 
 public:
     bst();
@@ -48,22 +50,11 @@ void bst::destroy(treeNode *p) {
     }
 }
 
-treeNode* bst::createFromPreorder(int *preorder, int size) {
-    if (size == 0)
-        return nullptr;
-
-    root = new treeNode{preorder[0], nullptr, nullptr};
-    treeNode *p = root;
-    for (int i = 1; i < size; i++) {
-        treeNode *t = new treeNode{preorder[i], nullptr, nullptr};
-        if (preorder[i] < p->data) {
-            p->leftChild = t;
-        } else {
-            p->rightChild = t;
-        }
-        p = t;
-    }
-    return root;
+int bst::height(treeNode *p) {
+    if (p == nullptr) return 0;
+    int leftHeight = height(p->leftChild);
+    int rightHeight = height(p->rightChild);
+    return 1 + max(leftHeight, rightHeight);
 }
 
 treeNode* bst::searchIterative(int key) {
@@ -134,13 +125,40 @@ void bst::insertRecursive(int key) {
 }
 
 void bst::createUsingPreorder(int *preorder, int size) {
-    root = createFromPreorder(preorder, size);
+    if (size == 0)
+        return;
+
+    root = new treeNode{preorder[0], nullptr, nullptr};
+    stack<treeNode*> st;
+    treeNode *p = root;
+
+    for (int i = 1; i < size; i++) {
+        if (preorder[i] < p->data) {
+            p->leftChild = new treeNode{preorder[i], nullptr, nullptr};
+            st.push(p);
+            p = p->leftChild;
+        } else {
+            while (!st.empty() && preorder[i] > st.top()->data) {
+                p = st.top();
+                st.pop();
+            }
+            p->rightChild = new treeNode{preorder[i], nullptr, nullptr};
+            p = p->rightChild;
+        }
+    }
 }
 
 treeNode* bst::inorderSuccessor(treeNode *p) {
     treeNode *current = p->rightChild;
     while (current && current->leftChild != nullptr)
         current = current->leftChild;
+    return current;
+}
+
+treeNode* bst::inorderPredecessor(treeNode *p) {
+    treeNode *current = p->leftChild;
+    while (current && current->rightChild != nullptr)
+        current = current->rightChild;
     return current;
 }
 
@@ -163,9 +181,15 @@ treeNode* bst::deleteNode(treeNode *p, int key) {
             delete p;
             return temp;
         }
-        treeNode *temp = inorderSuccessor(p);
-        p->data = temp->data;
-        p->rightChild = deleteNode(p->rightChild, temp->data);
+        if (height(p->leftChild) > height(p->rightChild)) {
+            treeNode *temp = inorderPredecessor(p);
+            p->data = temp->data;
+            p->leftChild = deleteNode(p->leftChild, temp->data);
+        } else {
+            treeNode *temp = inorderSuccessor(p);
+            p->data = temp->data;
+            p->rightChild = deleteNode(p->rightChild, temp->data);
+        }
     }
     return p;
 }
