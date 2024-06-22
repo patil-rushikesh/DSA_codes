@@ -4,10 +4,12 @@
         {
             "type": "shell",
             "label": "buildAndRun",
-            "command": "C:/Program Files/Git/bin/bash.exe",
+            "command": "C:/MinGW/bin/g++.exe",
             "args": [
-                "-c",
-                "\"c:/MinGW/bin/g++.exe -fdiagnostics-color=always -g '${file}' -o '${fileDirname}//${fileBasenameNoExtension}.exe'\""
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
